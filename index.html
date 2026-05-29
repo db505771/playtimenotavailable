@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weekly Progress</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #000000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .totals {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .totals h2 {
+      font-size: 32px;
+      margin: 0;
+    }
+
+    .totals p {
+      font-size: 20px;
+      color: #ccc;
+      margin: 5px 0 0;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="totals">
+    <h2>Total Hours</h2>
+    <p>Playtime is not enabled on this account</p>
+  </div>
+
+  <canvas id="chart" width="600" height="300"></canvas>
+
+  <script>
+    // Get last 7 days as labels
+    function getLast7DaysLabels() {
+      const labels = [];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        labels.push(d.toLocaleDateString("default", { month: "short", day: "numeric" }));
+      }
+      return labels;
+    }
+
+    const labels = getLast7DaysLabels();
+    const data = new Array(7).fill(0); // All values are 0
+
+    const ctx = document.getElementById("chart").getContext("2d");
+
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: "#15aaff",
+          borderRadius: 4
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: "#ccc" }
+          },
+          y: {
+            beginAtZero: true,
+            grid: { display: false },
+            ticks: { display: false }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
