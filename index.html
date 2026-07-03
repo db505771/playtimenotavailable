@@ -46,18 +46,8 @@
   <canvas id="chart" width="600" height="300"></canvas>
 
   <script>
-    // Get last 7 days as labels
-    function getLast7DaysLabels() {
-      const labels = [];
-      for (let i = 6; i >= 0; i--) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
-        labels.push(d.toLocaleDateString("default", { month: "short", day: "numeric" }));
-      }
-      return labels;
-    }
-
-    const labels = getLast7DaysLabels();
+    // Generic day labels instead of specific calendar dates
+    const labels = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
     const data = new Array(7).fill(0); // All values are 0
 
     const ctx = document.getElementById("chart").getContext("2d");
